@@ -1,0 +1,8 @@
+\begingroup
+\let\oldclearpage\clearpage
+\let\clearpage\ignorespaces
+\listoffigures
+\addcontentsline{toc}{chapter}{\textbf{\listfigurename}}
+\let\clearpage\oldclearpage
+\checkoddpage\ifoddpage\insertblankpage\else\fi
+\endgroup

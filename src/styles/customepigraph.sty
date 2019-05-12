@@ -1,0 +1,41 @@
+% IMPORTANT NOTE: this style file is made for working with memoir class
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{styles/customepigraph}[2016/06/25 Customized epigraph package]
+\RequirePackage{epigraph}
+\RequirePackage{etoolbox}
+% \itshape compatibility with etoolbox
+\makeatletter
+\patchcmd{\epigraph}{\@epitext{#1}}{\itshape\@epitext{#1}}{}{}
+\renewcommand{\@epirule}{{\color{UCLblue}\rule[10pt]{\epigraphwidth}{\epigraphrule}}}
+\makeatother
+% epigraph format
+\epigraphfontsize{\color{UCLblue}\Large\itshape}
+\setlength\epigraphwidth{0.8\textwidth}
+\setlength\epigraphrule{2pt}
+\setlength\beforeepigraphskip{1cm}
+\setlength\afterepigraphskip{1cm}
+\epigraphtextposition{flushright}   % ...|flushleft|center
+\epigraphsourceposition{flushright} % ...|flushleft|center
+% epigraph for chapter cover page
+\newcommand{\coverepigraph}[2]{
+  \begingroup
+  \epigraphtextposition{flushright}
+  \epigraphsourceposition{flushright}
+  \setlength\epigraphwidth{\textwidth}
+  \epigraph{\vspace{\beforeepigraphskip}\color{EPLblue}#1}{\color{UCLblue}#2}
+  \endgroup
+}
+% small epigraph for body text
+\newcommand\smallepigraph[3]{
+\hfill
+\begin{center}
+\begin{minipage}{#1}{
+  \begin{Spacing}{0.9}
+    \Large
+    \noindent
+    \textit{#2}
+  \end{Spacing}
+  \hfill
+  {#3}}
+\end{minipage}
+\end{center}}

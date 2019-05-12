@@ -1,0 +1,8 @@
+\begingroup
+\let\oldclearpage\clearpage
+\let\clearpage\ignorespaces
+\setlength{\beforechapskip}{0pt}
+\tableofcontents
+\let\clearpage\oldclearpage
+\checkoddpage\ifoddpage\insertblankpage\else\fi
+\endgroup

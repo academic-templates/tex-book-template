@@ -1,0 +1,157 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{styles/customboxes}[2016/06/25 Custom ToC package]
+\RequirePackage{tikz}
+\RequirePackage[framemethod=tikz]{mdframed}
+\RequirePackage{tabu}
+\RequirePackage{needspace}
+\RequirePackage{xparse}
+\RequirePackage{ifthen}
+% Tikz library imports
+\usetikzlibrary{shadows}
+
+% framed subsubsection
+%\newenvironment{framedsubsubsection}[1]{\tabulinesep=2mm \Needspace*{2cm} \begin{longtabu}%
+%  {!{\color{EPLblue}\vrule}m{0.15\textwidth}!{\color{EPLblue}\vrule}m{0.8\textwidth}!{\color{EPLblue}\vrule}}
+%  \arrayrulecolor{EPLblue}\hline \subsubsection*{\color{UCLblue} #1} &}{\\
+%  \arrayrulecolor{EPLblue}\hline \end{longtabu}}
+\newcommand{\specialcell}[2][c]{\begin{tabular}[#1]{@{}l@{}}#2\end{tabular}}
+
+% INFOBOX / SUMMARYBOX / DASHEDBOX
+\newmdenv[
+  leftmargin=0cm,
+  linewidth=0pt,
+  innermargin=0.5cm,
+  roundcorner=5pt,
+  backgroundcolor=EPLblue!20,
+  frametitle={},
+  shadowsize=5pt,
+  shadow=true,
+]{infobox}
+\newmdenv[
+  linewidth=0pt,
+  innertopmargin=\baselineskip,
+  roundcorner=5pt,
+  backgroundcolor=EPLblue!20,
+  frametitle=Summary,
+  frametitlefont=\LARGE\scshape\color{UCLblue}\bfseries,
+  shadowsize=5pt,
+  shadow=true,
+]{summarybox}
+\newmdenv[
+  linewidth=1pt,
+  innermargin=0.5cm,
+  tikzsetting={draw=white,line width=1.5pt,dashed,dash pattern=on 5pt off 3pt},
+  roundcorner=5pt,
+  frametitle=Pros \& Cons,
+  frametitlefont=\large\bfseries,
+]{dashedbox}
+
+% INFO
+\newenvironment{info}%
+  {\begin{center}\begin{minipage}{\linewidth}
+   \begin{infobox} \color{EPLblue}\vspace{0.2cm}
+     \begin{tabular}{m{.13\textwidth}m{.82\textwidth}}
+       \includegraphics[width=1.5cm]{icons/info.png} &}%
+  {\\ \end{tabular}\end{infobox}\end{minipage}\end{center}}
+  
+% PROJECTDATA
+\newenvironment{projectdata}%
+  {\begin{center}\begin{minipage}{\linewidth}
+   \begin{infobox}[backgroundcolor=lightgray]
+    \color{darktaupe}\hspace{2.6cm}\begin{minipage}{0.81\textwidth}}%
+  {\end{minipage}\end{infobox}\end{minipage}\end{center}}
+
+% SOLUTIONDATA
+\DeclareDocumentEnvironment{solutiondata}{O{}m}%
+  {\vspace{.5cm}
+   \begin{adjustbox}{minipage={\linewidth}, center}
+   \begin{infobox}[backgroundcolor=lightgray!30]
+    \begin{center}
+      \ifthenelse{\equal{#1}{\empty}}{}{\includegraphics[height=1.4cm]{icons/#1} \quad \quad}
+      \includegraphics[height=1.4cm]{icons/#2}
+    \end{center}
+    \color{darktaupe} \small
+    \begin{itemize}[labelsep=.8cm,itemsep=.4cm,leftmargin=3.2cm]}%
+  {\end{itemize}\vspace{.01cm}\end{infobox}\end{adjustbox}\vspace{.5cm}}
+
+% WARNING
+%\newenvironment{warning}%
+%  {\vspace{.5cm}\begin{adjustbox}{minipage={1.03\textwidth},margin=-20pt \smallskipamount,center}%
+%   \begin{infobox}[backgroundcolor=venetianred!20]%
+%    \color{maroon(html/css)}\vspace{.2cm}\begin{tabular}{m{.1\textwidth}m{.85\textwidth}}
+%      \includegraphics[width=1.5cm]{icons/warn.png} &}
+%  {\\ \end{tabular}\end{infobox}\end{adjustbox}\vspace{.5cm}}
+\newenvironment{warning}%
+  {\vspace{.5cm}
+   \begin{adjustbox}{minipage={\linewidth}, center}
+   \begin{infobox}[backgroundcolor=venetianred!20]
+    \color{maroon(html/css)}\vspace{.2cm}\begin{tabular}{m{.1\textwidth}m{.85\textwidth}}
+      \includegraphics[width=1.5cm]{icons/warn.png} &}
+  {\\ \end{tabular}\end{infobox}\end{adjustbox}\vspace{.5cm}}
+
+% STANDARD
+\newenvironment{standard}%
+  {\begin{adjustbox}{minipage={\linewidth}, center}
+   \begin{infobox}[backgroundcolor=lightgoldenrodyellow]%
+    \color{goldenbrown}\begin{tabular}{m{0.1\textwidth}m{0.85\textwidth}}
+      \includegraphics[width=1.5cm]{icons/standard.png} &}
+  {\\ \end{tabular}\end{infobox}\end{adjustbox}\vspace{1cm}}
+
+% SUMMARY
+\newcommand{\summarycaption}[1]{\caption{\color{UCLblue} #1}}
+\newenvironment{summary}%
+  {\pagebreak
+   \sectionmark{Summary}
+   \begin{summarybox}
+     \addcontentsline{toc}{section}{\textbf{Summary}} \small}%
+  {\end{summarybox}}
+
+% DISCUSSION
+\newenvironment{discussion}%
+  {\pagebreak
+   \captionsetup{labelfont={color=darktaupe}}%
+   \sectionmark{Discussion}
+   \begin{summarybox}[backgroundcolor=lightgray!40,%
+    frametitle=Discussion,frametitlefont=\LARGE\scshape\color{darktaupe}\bfseries]\color{darktaupe}%
+     \addcontentsline{toc}{section}{\textbf{Discussion}} \small}%
+  {\end{summarybox}}
+
+% EXAMPLE
+\newenvironment{example}%
+  {\captionsetup{labelfont={color=forestgreen(traditional)}}
+    \begin{adjustbox}{right}\begin{minipage}{\linewidth}%
+    \begin{summarybox}[backgroundcolor=celadon!40,frametitle=Example,
+                       frametitlefont=\LARGE\scshape\color{forestgreen(traditional)}\bfseries]%
+    \color{forestgreen(traditional)}}%
+  {\end{summarybox}\end{minipage}\end{adjustbox}}
+
+% OBSERVATION
+\newenvironment{observation}%
+  {\captionsetup{labelfont={color=forestgreen(traditional)}}
+    \begin{figure}[htb!]\begin{center}\begin{minipage}{.95\linewidth}%
+    \begin{summarybox}[backgroundcolor=celadon!40,frametitle=Observations,
+                       frametitlefont=\LARGE\scshape\color{forestgreen(traditional)}\bfseries]%
+    \color{forestgreen(traditional)}}%
+  {\end{summarybox}\end{minipage}\end{center}\end{figure}}
+
+% TIP
+\newenvironment{tip}%
+  {\begin{adjustbox}{minipage={\linewidth}, center}
+   \begin{infobox}[backgroundcolor=bluebell]%
+    \color{blue(pigment)}\begin{tabular}{m{.1\textwidth}m{.85\textwidth}}
+      \includegraphics[width=1.5cm]{icons/tip.png} &}%
+  {\\ \end{tabular}\end{infobox}\end{adjustbox}\vspace{1cm}}
+
+% TECHNIQUE
+\newcommand{\technique}[2]%
+  {\begin{center}\begin{minipage}{\linewidth}%
+   \begin{infobox}[backgroundcolor=lightgray!30]%
+    \color{darktaupe}
+    \begingroup
+    \renewcommand*{\arraystretch}{1.3}
+    \begin{tabular}{p{.2\textwidth}p{.75\textwidth}}
+      \textbf{Method :} & #1 \\
+      \multicolumn{2}{p{.98\textwidth}}{#2}
+    \end{tabular}
+    \endgroup
+   \end{infobox}\end{minipage}\end{center}}

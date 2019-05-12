@@ -1,0 +1,76 @@
+% IMPORTANT NOTE: this style file is made for working with memoir class
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{styles/customtoc}[2016/06/25 Custom ToC package]
+\RequirePackage{blindtext}
+\RequirePackage{etoolbox}
+\RequirePackage{titlesec}
+\RequirePackage{titletoc}
+\RequirePackage{calc}
+%\RequirePackage{tabto}
+% define main ToC depth
+\setcounter{tocdepth}{2}
+\makeatletter
+% avoid hyphenation in toc chapter/section/... titles
+\renewcommand{\@tocrmarg}{2.55em plus1fil}
+% redefine style for chapters
+\AtBeginDocument{
+  \renewcommand\chapternumberline[1]{\numberline{#1}}
+  \titlecontents{chapter}[0pt]{\protect\addvspace{1em}}%
+    {\bfseries\chaptername\ \thecontentslabel\enspace\quad}{}{\hfill\bfseries\contentspage}
+}
+% define AbsolutePosition function for use in customappendix
+%  source: http://tex.stackexchange.com/questions/33487/skip-to-absolute-position-on-line
+\newlength{\skipamount}
+\newcommand*{\AbsolutePosition}[5][]{\noindent#1\setlength{\skipamount}{#2-\widthof{#1}}%
+\hspace{\skipamount}#3\setlength{\skipamount}{#4-#2-\widthof{#3}}\hspace{\skipamount}#5}
+% redefine style for appendices
+\newcommand{\customappendix}[1]{
+  \setcounter{tocdepth}{0}
+  \cftaddtitleline{toc}{chapter}%
+  {\AbsolutePosition[\textbf{Appendix \Alph{chapter}}]{4cm}{\textbf{#1}}{}{}}
+  {\bfseries \thepage} % no page number
+}
+\newcommand\appendix@chapter[1]{
+  \refstepcounter{chapter}
+  \orig@chapter*{#1}
+  \customappendix{#1}
+}
+\let\orig@chapter\chapter
+\g@addto@macro\appendix{\let\chapter\appendix@chapter}
+% reformat toc
+\renewcommand{\tableofcontents}{
+  \begingroup
+  \renewcommand\contentsname{Table of Contents}
+  \addtocontents{toc}{\vspace{-70pt}}
+  \let\oldcleartorecto\cleartorecto
+  \let\cleartorecto\ignorespaces
+  \chapter*{\contentsname}
+  \tocheadstart
+  \pagestyle{cover}
+  \aftertoctitle
+  \@starttoc{toc}
+  \let\cleartorecto\oldcleartorecto
+  \endgroup
+}
+\pretocmd{\tableofcontents}{\titlecontents{section}[1.45cm]{\normalfont}{\contentslabel{0.9cm}}{}{\titlerule*[1pc]{.}\contentspage}}{}{}
+% reformat lof
+\renewcommand{\listoffigures}{
+  \begingroup
+  \renewcommand\listfigurename{List of Figures}
+  \addtocontents{lof}{\vspace{-20pt}}
+  \let\oldcleartorecto\cleartorecto
+  \let\cleartorecto\ignorespaces
+  \chapter*{\listfigurename}
+  \let\cleartorecto\oldcleartorecto
+  \endgroup
+  \lofheadstart
+  \afterloftitle
+  \@starttoc{lof}
+}
+\setlength{\cftfigurenumwidth}{5em}
+\makeatother
+
+\newcommand\invisiblesection[1]{%
+  \refstepcounter{section}%
+  \addcontentsline{toc}{section}{\protect\numberline{\thesection}#1}%
+  \sectionmark{#1}}

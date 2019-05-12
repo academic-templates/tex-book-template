@@ -1,0 +1,50 @@
+% IMPORTANT NOTE: this style file is made for working with memoir class
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{styles/customtable}[2016/06/25 Custom Table elements package]
+\RequirePackage{array}
+\RequirePackage{booktabs}
+\RequirePackage{longtable}
+\RequirePackage{multirow}
+\RequirePackage{bigdelim}
+\RequirePackage{adjustbox}
+\RequirePackage{pifont} 
+% define various customization for use in tables
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}m{#1}}
+\newcolumntype{C}[1]{>{\centering\arraybackslash}m{#1}}
+\newcolumntype{R}[1]{>{\raggedleft\arraybackslash}m{#1}}
+\newcolumntype{V}[2]{>{\adjustbox{angle=#1,lap=\width-(#2)}\bgroup}l<{\egroup}}
+\newcommand*\rot{\multicolumn{1}{V{90}{-0.1em}}}
+\newcommand{\hf}[2]{\multicolumn{1}{>{\cellcolor{gray!50}\centering\arraybackslash}m{#1}}{\textbf{#2}}}
+\newcommand{\multiline}[1]{\multicolumn{1}{@{}m{6cm}@{}}{#1}}
+\setlength\extrarowheight{0pt}
+% define some graphics for use in tables
+\newcommand{\true}{\includegraphics[scale=\tfscale]{true.png}}
+\newcommand{\truee}{\includegraphics[scale=\tfscale]{true_.png}}
+\newcommand{\false}{\includegraphics[scale=\tfscale]{false.png}}
+\newcommand*\ok{\ding{51}}
+% dash lines for tabular
+\newcommand{\dotrule}[1]{\parbox[t]{#1}{\dotfill}}
+\newcommand{\dotline}{\dotrule{\linewidth}}
+% define a dedicated environment for a specific type of table
+\newenvironment{controls}{
+  \begingroup
+  \small
+  \vspace{.3cm}
+  \renewcommand*{\arraystretch}{1.3}
+  \begin{center}
+  \rowcolors{2}{gray!25}{white}
+  \begin{tabular}{L{3.7cm}L{7cm}C{.7cm}C{.7cm}C{.7cm}}
+    \rowcolor{gray!50}
+    \hf{3.7cm}{Category} & \hf{7cm}{Subcategory} & \hf{.7cm}{App} & \hf{.7cm}{Sys} & \hf{.7cm}{Net} \\
+}{\end{tabular}\end{center}\vspace{.3cm}\endgroup}
+% define a dedicated environment for another specific type of table
+\newenvironment{tools}{
+  \begingroup
+  \small
+  \renewcommand*{\arraystretch}{1.3}
+  \begin{center}
+  \rowcolors{2}{gray!25}{white} % sum: 15.3cm
+  \begin{tabular}{L{.34\linewidth}L{.61\linewidth}}
+    \rowcolor{gray!50}
+    \hf{.34\linewidth}{Technique} & \hf{.61\linewidth}{Tools} \\
+}{\end{tabular}\end{center}\endgroup}

@@ -1,0 +1,153 @@
+% IMPORTANT NOTE: this style file is made for working with memoir class
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{styles/chaptercover}[2016/06/25 Custom chapter cover page package]
+\RequirePackage{styles/mtcpatchmem}
+\RequirePackage{tikz}
+%\RequirePackage{kpfonts} % display chapter names in small caps
+\RequirePackage{titletoc}
+\RequirePackage[rigidchapters,explicit,toctitles]{titlesec}
+\RequirePackage{multicol}
+% Tikz library imports
+\usetikzlibrary{backgrounds,calc,positioning}
+% define tikz settings for drawing chapter headers
+\tikzset{ % these settings define the blue chapter heading label
+  chapterlabel/.style={draw,%
+  rectangle,%
+  draw=none,%
+  rounded corners=28pt,%
+  inner sep=12pt,%
+  minimum width=12cm,%
+  minimum height=2cm,%
+  anchor=west,%
+  xshift=.16\paperwidth,%
+  fill=UCLblue},
+}
+\tikzset{ % these settings define the blue chapter text header (when chapternumber is present)
+  chapterheader/.style={draw,%
+  rectangle,%
+  draw=none,%
+  rounded corners=28pt,%
+  inner sep=12pt,%
+  minimum width=10cm,%
+  minimum height=2cm,%
+  anchor=west,%
+  xshift=.26\paperwidth,%
+  fill=UCLblue},
+}
+% redefine chapter title format
+\newcommand*\chapterlabel{}
+\titleformat{\chapter}%
+  {\gdef\chapterlabel{} \normalfont\Huge\bfseries\scshape}%
+  {\gdef\chapterlabel{\thechapter}}%
+  {0pt}{%
+  \ifthenelse{\value{chapter}=0}{%
+    \begin{tikzpicture}[remember picture,overlay]
+      \node[yshift=-4.5cm] at (current page.north west){
+        \begin{tikzpicture}[remember picture, overlay]
+          \draw[fill=EPLblue,draw=none] (3,0) rectangle (\paperwidth-3cm, 1.5cm);
+          \node[chapterlabel]{\color{white}#1};
+        \end{tikzpicture}
+      };
+    \end{tikzpicture}
+  }{\pagecolor{lightgoldenrodyellow}\afterpage{\nopagecolor}
+    \begin{tikzpicture}[remember picture,overlay]
+      \node[yshift=-3cm] at (current page.north west){
+        \begin{tikzpicture}[remember picture, overlay]
+          \draw[fill=EPLblue,draw=none] (3, 0) rectangle (4.5cm, -23.5cm);
+        \end{tikzpicture}
+      };
+      \node[yshift=-4.5cm] at (current page.north west){
+        \begin{tikzpicture}[remember picture, overlay]
+          \draw[fill=EPLblue,draw=none] (3,0) rectangle (\paperwidth-3cm, 1.5cm);
+          \node[chapterlabel]{};
+          \node[chapterheader]{\color{white}#1};
+          \draw[fill=white,draw=none] (4.4,0) circle (0.9cm) node {\color{UCLblue}\thechapter};
+        \end{tikzpicture}
+      };
+    \end{tikzpicture}
+  }}
+\titlespacing*{\chapter}{0pt}{80pt}{-60pt}
+% define partial ToC command
+\newcommand*{\printpartialtoc}{
+  \begingroup
+  \begin{minipage}[c]{.85\linewidth}
+    \printcontents{0}{1}{\setcounter{tocdepth}{3}\setcounter{secnumdepth}{3}}
+  \end{minipage}
+  \endgroup
+}
+% define a new environment for creating a chapter with a cover
+%  arg1: is the chapter title
+%  arg2: is a description of the chapter content
+\newenvironment{chaptercover}[2]{
+  \begingroup
+  \titlecontents{section}[1.45cm]{\normalfont\bfseries}{\contentslabel{0.9cm}}{}{\titlerule*[1pc]{.}\contentspage}
+  \let\cleardoublepage\relax  % prevent chapter from starting to the next page (for two-side document)
+  \let\clearpage\relax        % same (for one-side document)
+  \chapter{#1}
+  \label{#2}
+  \endgroup                   % restore newpage before each chapter
+  \startcontents
+  \begin{tikzpicture}[remember picture,overlay]
+    \node[yshift=0cm] at (current page.north west){
+      \begin{tikzpicture}[remember picture, overlay]
+        \color{white} \node[draw=none,rotate=90,text width=7cm] at (3.8,-7){\LARGE CHAPTER};
+        \color{black} \node[anchor=north,align=left,draw=none,text width=15cm] at (12,-8.3){\large \printpartialtoc};
+%        \color{black} \node[align=left,draw=none,text width=15cm] at (12,-9.4){\large \printpartialtoc};
+      \end{tikzpicture}
+    };
+  \end{tikzpicture}
+%  \thispagestyle{empty} % use this to remove style on the chapter cover page (i.e. page number)
+  \thispagestyle{cover}
+  \newpage
+}{\stopcontents\checkoddpage\ifoddpage\insertblankpage\else\fi}
+% define a new environment for creating an appendix chapter with a cover
+%  arg1: is the chapter title
+%  arg2: is the chapter reference
+\newenvironment{appchaptercover}[2]{
+  \begingroup
+  \titlecontents{section}[1.45cm]{\normalfont\bfseries}{\contentslabel{0.9cm}}{}{\titlerule*[1pc]{.}\contentspage}
+  \let\cleardoublepage\relax  % prevent chapter from starting to the next page (for two-side document)
+  \let\clearpage\relax        % same (for one-side document)
+%  \pagenumbering{arabic}
+  \chapter{#1}
+  \label{#2}
+  \chaptermark{#1}
+  \endgroup                   % restore newpage before each chapter
+  \startcontents
+  \begin{tikzpicture}[remember picture,overlay]
+    \node[yshift=0cm] at (current page.north west){
+      \begin{tikzpicture}[remember picture, overlay]
+        \color{white} \node[draw=none,rotate=90,text width=7cm] at (3.8,-7){\LARGE APPENDIX};
+        \color{black} \node[anchor=north,align=left,draw=none,text width=15cm] at (12,-8.3){\large \printpartialtoc};
+      \end{tikzpicture}
+    };
+  \end{tikzpicture}
+  \thispagestyle{cover}
+  \newpage
+}{\stopcontents\checkoddpage\ifoddpage\insertblankpage\else\fi}
+% define a new command for creating an appendix chapter with a cover from an included PDF file
+%  arg1: chapter title
+%  arg2: chapter reference
+%  arg3: relative path to the PDF to be included
+%  arg4: scale of the first page
+%  arg5: scale of all the other pages
+%  arg6: vertical offset of the first page
+%  arg7: vertical offset of all the other pages
+%  arg8: additional subtitle for the first page
+\newcommand{\includeappchaptercover}[8]{
+  \begingroup
+  \let\cleardoublepage\relax  % prevent chapter from starting to the next page (for two-side document)
+  \let\clearpage\relax        % same (for one-side document)
+%  \pagenumbering{arabic}
+  \includepdf[pages=1,scale=#4,offset=0 #6,pagecommand=\chapter{#1}\label{#2}\chaptermark{#1}\thispagestyle{chapter}%
+    \begin{center}\fontfamily{phv}\selectfont\bfseries\huge \vspace{-1cm}#8\end{center}]{#3}
+  \includepdf[pages=2-,scale=#5,offset=0 #7,pagecommand=\thispagestyle{headings}]{#3}
+  \endgroup                   % restore newpage before each chapter
+}
+% define a new command for creating an appendix chapter with screenshot pages from an external report
+\newcommand{\reportpage}[2]{%
+  \invisiblesection{#1}
+  \begin{tikzpicture}[remember picture,overlay]
+    \node[xshift=10.5cm,yshift=-14.5cm] at (current page.north west){\includegraphics[width=1.25\linewidth]{#2}};
+  \end{tikzpicture}
+\newpage}

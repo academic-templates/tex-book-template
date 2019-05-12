@@ -1,0 +1,207 @@
+% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+% IMPORTANT NOTE: this style file is made for working with memoir class
+%  The memoir class offers the functionnalities of the tocbibind, appendix and tocloft packages
+% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\NeedsTeXFormat{LaTeX2e}
+%% DO NOT DELETE (for compatibility with memoir class)
+\let\subcaption\undefined
+\let\subfloat\undefined
+%%
+\ProvidesPackage{styles/lap-publishing-book}[2016/06/25 LAP Publishing package]
+\RequirePackage[T1]{fontenc}
+\RequirePackage[utf8]{inputenc}
+\RequirePackage{graphicx}
+\RequirePackage{caption}
+\RequirePackage{subcaption}
+\RequirePackage[table]{xcolor}
+\RequirePackage{float}
+\RequirePackage[english]{babel}
+\RequirePackage{url}
+\RequirePackage{amsmath}
+\RequirePackage{makeidx}
+\RequirePackage{pdfpages} % for \includepdf
+\RequirePackage{enumitem}
+\RequirePackage{lettrine}
+\RequirePackage{ifthen}
+\RequirePackage{courier}
+\RequirePackage{listings}
+\RequirePackage{setspace}
+\RequirePackage{afterpage}
+\RequirePackage{changepage}
+\RequirePackage{rotating}
+\RequirePackage{fancyvrb}
+\RequirePackage{textpos}
+\RequirePackage[font=small,totoc]{idxlayout}
+% custom packages -- WARNING: import order matters !!!
+\RequirePackage{styles/dirtree}
+\RequirePackage{styles/custompagestyle}
+\RequirePackage{styles/customcolors}
+\RequirePackage{styles/chaptercover}
+\RequirePackage[hidelinks]{hyperref} % must appear before minitoc (imported in styles/customtoc)
+\RequirePackage[acronym,nopostdot,nonumberlist,toc,section=section]{glossaries} % NB: glossaries must be loaded after hyperref
+\RequirePackage{styles/customtable}
+\RequirePackage{styles/customtoc}
+\RequirePackage{styles/customepigraph}
+\RequirePackage{styles/customboxes}
+% bibliography settings
+\RequirePackage[
+  defernumbers=true,
+  backend=bibtex,
+  style=numeric-comp,
+  sorting=none,
+  block=none,
+  indexing=false,
+  citereset=none,
+  url=true
+]{biblatex}
+\addbibresource{parts/bibliography.bib}
+\addbibresource{parts/understanding-scap.bib}
+\addtolength{\skip\footins}{.5cm}
+% image settings
+\graphicspath{{figures/},{figures/srs/},{figures/sdd/},{./figures/scap-survey/},{./icons/}}
+\DeclareGraphicsExtensions{.jpg,.jpeg,.gif,.png,.pdf}
+% other settings
+\setboolean{@twoside}{true}
+\setlength{\parindent}{0 pt}
+\feetatbottom % note: this has no effect when \flushbottom is active
+\setcounter{biburllcpenalty}{9000}
+\let\cleardoublepage\clearpage
+% customize paragraph indentation and space
+\setlength{\parindent}{0pt}
+\nonzeroparskip
+% lettrine helper command with settings
+\newcommand{\bigletter}[2]{\lettrine[findent=10pt]{#1}{#2}}
+% clear page helper command, putting the text "this page intentionally left blank"
+\makeatletter
+\newcommand{\blankpage}{\clearpage \begin{vplace}[0.7]
+  \begin{center}\color{lightgray} This page intentionally left blank.\end{center}
+  \end{vplace} \thispagestyle{cover} \newpage}
+\makeatother
+% customized style for glossaries
+\newlength{\tabcont}
+\newcommand{\tab}[1]{%
+  \settowidth{\tabcont}{#1}%
+  \ifthenelse{\lengthtest{\tabcont < .2\linewidth}}%
+    {\makebox[.2\linewidth][l]{#1}\ignorespaces}%
+    {\makebox[.3\linewidth][l]{#1}\ignorespaces}%
+}
+\newglossarystyle{customstyle}{%
+  \glossarystyle{list}%
+  \renewcommand*{\glsgroupskip}{}%
+  \renewcommand*{\glossaryentryfield}[5]{%
+    \item {\small \tab{\textbf{\glsentryitem{##1}\glstarget{##1}{##2}}} \quad{##3\glspostdescription\space ##5}}}%
+  \thispagestyle{cover}
+}
+% section and subsection title format
+\renewcommand{\thesection}{\arabic{section}}  % will display only the section number in ToC (not the chapter one)
+\titleformat{\section}{\LARGE\bfseries}{\thesection}{1cm}{#1}
+\titlespacing*{\section}{0cm}{1.5cm}{0.5cm}
+\titleformat{\subsection}{\Large\bfseries}{\thesubsection}{1cm}{#1}
+\titlespacing*{\subsection}{0cm}{1cm}{0.5cm}
+%\titleformat{\section}[hang]{\bfseries}{\thesection\ \ }{10pt}{}
+% figure caption and source setup
+\newcommand{\figuresource}[1]{%
+  \par\vspace*{-\abovecaptionskip}%
+  \caption*{\footnotesize\itshape #1}}
+\captionsetup{textfont=small,justification=centering}
+% footnote customization
+\renewcommand{\footnoterule}{\kern-3pt \hrule width \textwidth \kern 2.6pt}
+\footmarkstyle{\hspace{\parindent}\textsuperscript{#1}\quad}    % indent the footmark 
+\setlength{\footmarkwidth}{0em}
+\setlength{\footmarksep}{0em}
+\setlength{\footparindent} {\parindent}
+% special include for appendix ; this performs a normal include if appendices must be included,
+%  else it just add a line in the ToC without adding text content
+\newcommand{\specialinclude}[3]{
+  \ifthenelse{\equal{\displayappendices}{true}}{
+    \include{#1}
+  }{
+    \begingroup
+    \refstepcounter{chapter}
+    \customappendix{#2}
+    \label{#3}
+    \endgroup
+  }
+}
+% define some mini-pictures
+\newcommand{\linux}[0]{\includegraphics[height=10pt,natwidth=178,natheight=197]{linux}}
+\newcommand{\mac}[0]{\includegraphics[height=10pt,natwidth=19,natheight=20]{mac}}
+\newcommand{\win}[0]{\includegraphics[height=10pt,natwidth=21,natheight=20]{windows}}
+\newcommand{\all}[0]{\includegraphics[height=10pt,natwidth=23,natheight=20]{cross-platform}}
+\newcommand{\solar}[0]{\includegraphics[height=10pt,natwidth=20,natheight=20]{solaris}}
+\newcommand{\script}[0]{\includegraphics[height=10pt,natwidth=20,natheight=20]{script}}
+\newcommand{\ukey}[0]{\includegraphics[height=10pt,natwidth=20,natheight=20]{portable}}
+\newcommand{\coin}[0]{\includegraphics[height=8pt,natwidth=20,natheight=20]{dollar}}
+% listings package settings
+\lstset{
+  basicstyle=\ttfamily\footnotesize,
+  mathescape=false,
+  escapeinside={(*}{*)}
+}
+% dirtree settings
+\renewcommand*\DTstyle{\normalfont\textcolor{UCLblue}}
+% command for generating the blank pages for the printed version
+\newcommand{\insertblankpage}{\ifthenelse{\equal{\printversion}{true}}{\blankpage}{}}
+
+
+% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+%%% REFERENCE: ../../admin/formatting_requirements
+% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+%
+% 1) File format
+%    - Is your manuscript file in PDF format? 														OK
+%    - Are all pages in DIN A4 (210x297mm) portrait format? 										OK
+%
+% 2) Margins
+%    - Did you set the margins' size for the body text, footnotes, illustrations and page
+%       numbers according to the number of pages in your manuscript?								OK		
+%      -> Up to 140 Pages: 2 cm
+%      -> Up to 390 Pages: 3 cm
+%      -> Above 390 Pages: 3.6 cm
+%
+\usepackage[a4paper,top=3cm,bottom=3cm,left=3cm,right=3cm,headsep=1cm, asymmetric]{geometry}
+%
+% 3) Illustrations / Graphics
+%    - Do your illustrations and graphics have a minimum resolution of 300dpi?
+%    - Is the font size in your illustrations and graphics at least 10pt?
+%    - Do your illustrations, graphics and page numbers respect the margin size?
+%
+% 4) Character set
+%    - Are all used font types embedded? (we recommend Arial or Times New Roman)					OK
+\usepackage{mathptmx}
+%    - Is the used font size for the body text at least 14pt?										OK
+%    - Is the used font size for headlines at least 16pt?											OK
+%    - Is the used font size for footnotes at least 11pt?											OK
+\makeatletter
+\renewcommand\tiny{\@setfontsize\tiny{10}{12}}
+\renewcommand\scriptsize{\@setfontsize\scriptsize{11}{13}}
+\renewcommand\footnotesize{\@setfontsize\footnotesize{12}{14}}
+\renewcommand\small{\@setfontsize\small{13}{15}}
+\renewcommand\normalsize{\@setfontsize\normalsize{15}{18}}
+\renewcommand\large{\@setfontsize\large{17}{19}}
+\renewcommand\Large{\@setfontsize\Large{19}{21}}
+\renewcommand\LARGE{\@setfontsize\LARGE{23}{26}}
+\renewcommand\huge{\@setfontsize\huge{26}{32}}
+\renewcommand\Huge{\@setfontsize\Huge{30}{40}}
+\makeatother
+%
+% 5) Line spacing
+%    - Is the line spacing between 1.15 and 1.60 (for footnotes / illustrations at least 1.0)?
+\renewcommand{\baselinestretch}{1.25}
+%
+% 6) Page numbers
+%    - Is the pagination continuous and consecutive (no missing pages or page numbers)?				OK
+%    - Is the alignment of page numbers centered on top or bottom?
+%    - Do the Table of Contents and Chapter 1 start on an odd-numbered Page?						OK
+%      -> 1st page in PDF = right side in book
+%      -> 2nd page in PDF = left side in book
+%      -> etc
+%
+% Others
+%    - Does the manuscript contain a table of contents? 											OK
+%    - Are title, certificate or statutory declaration pages (if any) removed?						OK
+%
+\nouppercaseheads
+\pagestyle{standard}
+%\raggedbottom
+%\setmarginnotes{0cm}{\linewidth}{0cm}

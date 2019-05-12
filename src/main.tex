@@ -1,0 +1,71 @@
+% Common parameters
+\title{Design and Implementation of a Software APL Automation Framework -- Analysis of Common Applications}
+\author{D'Hondt, Alexandre \and Bahmad, Hussein}
+\date{\today}
+% +++++++++++++++++++++++++++++++++++++++++++++ CONFIGURATION ++++++++++++++++++++++++++++++++++++++++
+% parameter for the print version (i.e. generate the blank pages)
+\def\printversion{true}
+% parameter to display appendices normally or simply the line in ToC
+%  NB: this is useful if you do not want to include the appendices into the text but you want to keep
+%       appendices lines in the ToC and also the labels for referencing
+\def\displayappendices{true}
+% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\documentclass[16pt,a4paper,twoside,openright]{memoir}
+%\setulmarginsandblock{2.5cm}{2cm}{*}
+%\setlrmarginsandblock{1.5cm}{1.5cm}{*}
+\setulmarginsandblock{3cm}{3cm}{*}
+\setlrmarginsandblock{3cm}{3cm}{*}
+%\renewcommand*\familydefault{\sfdefault} % use this to change overall font
+\renewcommand*\familydefault{ppl}
+\checkandfixthelayout
+% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+% custom packages (contain all required usepackage's)
+\usepackage{styles/lap-publishing-book}
+% ****************************** REMOVE BEFORE SUBMISSION - START ******************************
+%\usepackage{draftwatermark}
+%\SetWatermarkText{DRAFT}
+%\SetWatermarkScale{1}
+% ******************************* REMOVE BEFORE SUBMISSION - END *******************************
+%
+\makeindex
+\makeglossaries
+%
+\begin{document}
+  % content starts here
+  \setcounter{page}{1}
+  \include{parts/abstract}
+  \include{parts/foreword}
+  \include{parts/acknowledgements}
+  % this part takes roman numerals page numbering
+  \frontmatter
+  \pagestyle{cover}
+  \include{parts/toc}
+  \include{parts/lof}
+  \include{parts/acronyms}
+  % for the rest, page numbering is arabic
+  \mainmatter
+  \pagestyle{standard}
+  \include{chapters/introduction}
+  \include{chapters/background}
+  \include{chapters/framework}
+  \include{chapters/system}
+  \include{chapters/experiments}
+  \include{chapters/conclusion}
+  \setcounter{chapter}{0}
+  \addtocontents{toc}{\protect\setcounter{tocdepth}{0}} % for other parts (i.e. appendices), do not count sections, subsections, ...
+  \addtocontents{ptc}{\protect\setcounter{tocdepth}{2}} % but for appendices' toc's, keep depth to 2
+  \include{parts/references}
+  \addtocontents{toc}{\protect\newpage}
+  \include{parts/index}
+  \appendix
+  \pagestyle{standard}
+  \specialinclude{appendices/audit-process}{Audit Process}{app:audit-process}
+  \specialinclude{appendices/iso27034}{ISO 27034}{app:iso27034}
+  \specialinclude{appendices/nist-sp800-115}{NIST SP800-115}{app:nist-sp800-115}
+  \specialinclude{appendices/scap}{SCAP survey}{app:scap}
+  \specialinclude{appendices/tools}{Useful Tools}{app:tools}
+  \specialinclude{appendices/srs-extract}{SRS Extract}{app:srs}
+  \specialinclude{appendices/sdd-extract}{SDD Extract}{app:sdd}
+  \specialinclude{appendices/scapl-plugin}{SCAPL Plugin}{app:scapl-plugin}
+  \specialinclude{appendices/apl-report}{APL Report}{app:apl-report}
+\end{document}

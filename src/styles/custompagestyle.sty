@@ -1,0 +1,74 @@
+% IMPORTANT NOTE: this style file is made for working with memoir class
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{styles/custompagestyle}[2016/06/25 Custom pagestyle package]
+\RequirePackage{ifthen}
+\RequirePackage{tikz}
+\usetikzlibrary{shapes,snakes}
+
+% draw ellipse around page number
+\newcommand*\pagenumberbox[1]{
+  \tikz[baseline=(char.base)]{
+    \node[ellipse,minimum width=1.5cm,align=center,fill=gray!40,inner sep=3pt]%
+      (char) {\color{white} #1};}}
+
+% define page style with headings
+\makepagestyle{standard}
+\newcommand{\formatheadermark}[2]{\small \color{#2} \uppercase{#1}}
+\setlength{\beforechapskip}{-1cm}
+%\makeevenhead{standard}{}{}{\rightmark \quad %
+%  \ifthenelse{\equal{\rightmark}{\empty}}{}{\quad \formatheadermark{|}{EPLblue}} \leftmark}
+%\makeoddhead{standard}{\leftmark %
+%  \ifthenelse{\equal{\rightmark}{\empty}}{}{\formatheadermark{|}{EPLblue} \quad} \quad \rightmark}{}{}
+\makeevenhead{standard}{\leftmark \ifthenelse{\equal{\rightmark}{\empty}}{}{\quad \formatheadermark{|}{celadon}} \quad \rightmark}{}{}
+\makeoddhead{standard}{}{}{\leftmark \ifthenelse{\equal{\rightmark}{\empty}}{}{\quad \formatheadermark{|}{celadon}} \quad \rightmark}
+\makeatletter
+\makepsmarks{standard}{
+  \def\chaptermark##1{\markboth{%
+        \ifnum \value{chapter} > 0
+          \if@mainmatter
+            \formatheadermark{##1}{celadon}
+          \fi
+        \fi}{}}
+  \def\sectionmark##1{\markright{%
+        \ifnum \value{section} > 0
+          \formatheadermark{##1}{lightgray}
+        \fi}}
+}
+\makeatother
+\makeevenfoot{standard}{}{\vspace{-1cm}\pagenumberbox{\thepage}}{} %
+\makeoddfoot{standard}{}{\vspace{-1cm}\pagenumberbox{\thepage}}{}  %
+\makeheadrule{standard}{\textwidth}{0pt} %{\normalrulethickness}
+
+% define page style with no heading
+\makepagestyle{cover}
+\makeevenhead{cover}{}{}{}
+\makeoddhead{cover}{}{}{}
+\makeevenfoot{cover}{}{\vspace{-1cm}\pagenumberbox{\thepage}}{} %
+\makeoddfoot{cover}{}{\vspace{-1cm}\pagenumberbox{\thepage}}{}  %
+\makeheadrule{cover}{\textwidth}{0pt} %{\normalrulethickness}
+
+\AtBeginDocument{\addtocontents{toc}{\protect\thispagestyle{cover}}}
+\AtBeginDocument{\addtocontents{toc}{\protect\pagestyle{cover}}}
+\AtBeginDocument{\addtocontents{lof}{\protect\thispagestyle{cover}}}
+\AtBeginDocument{\addtocontents{lof}{\protect\pagestyle{cover}}}
+\AtBeginDocument{\addtocontents{lol}{\protect\thispagestyle{cover}}}
+\AtBeginDocument{\addtocontents{lol}{\protect\pagestyle{cover}}}
+\AtBeginDocument{\addtocontents{lot}{\protect\thispagestyle{cover}}}
+\AtBeginDocument{\addtocontents{lot}{\protect\pagestyle{cover}}}
+\AtBeginDocument{\addtocontents{bib}{\protect\thispagestyle{cover}}}
+\AtBeginDocument{\addtocontents{bib}{\protect\pagestyle{cover}}}
+\AtBeginDocument{\addtocontents{index}{\protect\thispagestyle{cover}}}
+\AtBeginDocument{\addtocontents{index}{\protect\pagestyle{cover}}}
+\AtBeginDocument{\addtocontents{glossary}{\protect\thispagestyle{cover}}}
+\AtBeginDocument{\addtocontents{glossary}{\protect\pagestyle{cover}}}
+
+\newenvironment{changemargin}[2]{%
+\begin{list}{}{%
+\setlength{\topsep}{0pt}%
+\setlength{\leftmargin}{#1}%
+\setlength{\rightmargin}{#2}%
+\setlength{\listparindent}{\parindent}%
+\setlength{\itemindent}{\parindent}%
+\setlength{\parsep}{\parskip}%
+}%
+\item[]}{\end{list}}

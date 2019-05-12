@@ -1,0 +1,11 @@
+\nocite{*}
+\pagestyle{cover}
+\begingroup
+\sloppy
+\emergencystretch 1.5em
+\AtNextBibliography{\small}
+\aliaspagestyle{headings}{cover}
+\renewcommand{\bibsetup}{\thispagestyle{cover}\pagestyle{cover}}
+\printbibliography[heading=bibintoc,title={\textbf{References}}]
+\endgroup
+\checkoddpage\ifoddpage\insertblankpage\else\fi

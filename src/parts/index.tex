@@ -1,0 +1,10 @@
+\begingroup
+\newpage
+\aliaspagestyle{chapter}{cover}
+\pagestyle{cover}
+\vspace{-1.5cm}
+\renewcommand\indexname{\textbf{Index}}
+\renewcommand\indexspace{\vspace{.7cm}}
+\printindex
+\endgroup
+\checkoddpage\ifoddpage\pagestyle{cover}\insertblankpage\else\fi
