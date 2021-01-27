@@ -1,18 +1,18 @@
-# LaTeX Book Template
+## Introduction
 
 The goal of this template is to provide a nice-looking book layout, easy to configure and fill in.
 
 Here is an example preview for the table of content, and other main document items:
 
-![](doc/preview-main.png)
+<p align="center"><img src="https://raw.githubusercontent.com/dhondta/tex-book-template/master/doc/preview-main.png"></p>
 
 Here is an example preview for chapter items, including the chapter heading, summary and discussion pages:
 
-![](doc/preview-chapter.png)
+<p align="center"><img src="https://raw.githubusercontent.com/dhondta/tex-book-template/master/doc/preview-chapter.png"></p>
 
 Here is an example preview for appendix items, including the appendix heading with a mini table of content:
 
-![](doc/preview-appendix.png)
+<p align="center"><img src="https://raw.githubusercontent.com/dhondta/tex-book-template/master/doc/preview-appendix.png"></p>
 
 
 ## Structure
