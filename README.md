@@ -4,7 +4,8 @@ The goal of this template is to provide a nice-looking book layout, easy to conf
 
 Here is an example preview for the table of content, and other main document items:
 
-<p align="center"><img src="https://raw.githubusercontent.com/dhondta/tex-book-template/master/doc/preview-main.png"></p>
+<p align="center"><img src="https://raw.githubusercontent.com/dhondta/tex-book-template/master/doc/preview-main.png">
+<sub><sup>Preview image generated with [this tool](https://gist.github.com/dhondta/f57dfde304905644ca5c43e48c249125)</sup></sub></p>
 
 Here is an example preview for chapter items, including the chapter heading, summary and discussion pages:
 
