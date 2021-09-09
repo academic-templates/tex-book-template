@@ -9,11 +9,13 @@ Here is an example preview for the table of content, and other main document ite
 
 Here is an example preview for chapter items, including the chapter heading, summary and discussion pages:
 
-<p align="center"><img src="https://raw.githubusercontent.com/dhondta/tex-book-template/master/doc/preview-chapter.png"></p>
+<p align="center"><img src="https://raw.githubusercontent.com/dhondta/tex-book-template/master/doc/preview-chapter.png">
+<sub><sup>Preview image generated with <a href="https://gist.github.com/dhondta/f57dfde304905644ca5c43e48c249125">this tool</a></sup></sub></p>
 
 Here is an example preview for appendix items, including the appendix heading with a mini table of content:
 
-<p align="center"><img src="https://raw.githubusercontent.com/dhondta/tex-book-template/master/doc/preview-appendix.png"></p>
+<p align="center"><img src="https://raw.githubusercontent.com/dhondta/tex-book-template/master/doc/preview-appendix.png">
+<sub><sup>Preview image generated with <a href="https://gist.github.com/dhondta/f57dfde304905644ca5c43e48c249125">this tool</a></sup></sub></p>
 
 
 ## Structure
