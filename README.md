@@ -1,24 +1,21 @@
-## Introduction
+## :information_source: Introduction
 
 The goal of this template is to provide a nice-looking book layout, easy to configure and fill in.
 
 Here is an example preview for the table of content, and other main document items:
 
-<p align="center"><img src="https://raw.githubusercontent.com/dhondta/tex-book-template/master/doc/preview-main.png">
-<sub><sup>Preview image generated with <a href="https://gist.github.com/dhondta/f57dfde304905644ca5c43e48c249125">this tool</a></sup></sub></p>
+<p align="center"><img src="https://raw.githubusercontent.com/dhondta/tex-book-template/master/doc/preview-main.png"></p>
 
 Here is an example preview for chapter items, including the chapter heading, summary and discussion pages:
 
-<p align="center"><img src="https://raw.githubusercontent.com/dhondta/tex-book-template/master/doc/preview-chapter.png">
-<sub><sup>Preview image generated with <a href="https://gist.github.com/dhondta/f57dfde304905644ca5c43e48c249125">this tool</a></sup></sub></p>
+<p align="center"><img src="https://raw.githubusercontent.com/dhondta/tex-book-template/master/doc/preview-chapter.png"></p>
 
 Here is an example preview for appendix items, including the appendix heading with a mini table of content:
 
-<p align="center"><img src="https://raw.githubusercontent.com/dhondta/tex-book-template/master/doc/preview-appendix.png">
-<sub><sup>Preview image generated with <a href="https://gist.github.com/dhondta/f57dfde304905644ca5c43e48c249125">this tool</a></sup></sub></p>
+<p align="center"><img src="https://raw.githubusercontent.com/dhondta/tex-book-template/master/doc/preview-appendix.png"></p>
 
 
-## Structure
+## :card_file_box: Structure
 
 The template is structured in the following way:
 
@@ -30,11 +27,11 @@ The template is structured in the following way:
 - `parts`: This folder contains every part other than chapters or appendices (i.e. abstract, foreword, references, acronyms, ...), one TeX file for each of them, to be included in `main.tex`.
 - `styles`: This folder contains the available styles. Most of the included one should not be edited.
 
-> This structure follows the same one as for [this master thesis template](https://github.com/dhondta/tex-master-thesis-template).
+> This structure follows the same one as for [this master thesis template](https://github.com/dhondta/tex-book-template).
 
 > This particular template features a style especially designed for publishing at [Lambert Academic Publishing](https://www.lap-publishing.com/), `style/lap-publishing-book.sty`.
 
-## Compilation
+## :gear: Compilation
 
 The compilation can easilly be configured in [Texmaker](https://en.wikipedia.org/wiki/Texmaker) by defining a *Quick Build Command*:
 
@@ -57,7 +54,7 @@ When editing the index with [Texmaker](https://en.wikipedia.org/wiki/Texmaker):
 
 This will produce `main.pdf` with all the included chapters, parts and appendices.
 
-## Making your book
+## :closed_book: Making your book
 
 ### Tuning parts
 
@@ -118,3 +115,21 @@ Your appendix content.
 
 \end{appchaptercover}
 ```
+
+
+## :star: Related Projects
+
+You may also like these:
+
+- [TeX Course Index Template](https://github.com/dhondta/tex-course-index-template): A template for writing a condensed course index leveraging LaTeX indexing.
+- [TeX Master Thesis Template](https://github.com/dhondta/tex-master-thesis-template): A template for writing a nice master thesis dissertation with LaTeX.
+
+
+## :clap:  Supporters
+
+[![Stargazers repo roster for @dhondta/tex-book-template](https://reporoster.com/stars/dark/dhondta/tex-book-template)](https://github.com/dhondta/tex-book-template/stargazers)
+
+[![Forkers repo roster for @dhondta/tex-book-template](https://reporoster.com/forks/dark/dhondta/tex-book-template)](https://github.com/dhondta/tex-book-template/network/members)
+
+<p align="center"><a href="#"><img src="https://img.shields.io/badge/Back%20to%20top--lightgrey?style=social" alt="Back to top" height="20"/></a></p>
+
