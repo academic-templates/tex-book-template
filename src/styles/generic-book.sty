@@ -7,7 +7,7 @@
 \let\subcaption\undefined
 \let\subfloat\undefined
 %%
-\ProvidesPackage{styles/lap-publishing-book}[2016/06/25 LAP Publishing package]
+\ProvidesPackage{styles/generic-book}[2016/06/25 generic-book package]
 \RequirePackage[T1]{fontenc}
 \RequirePackage[utf8]{inputenc}
 \RequirePackage{graphicx}
@@ -32,6 +32,7 @@
 \RequirePackage{fancyvrb}
 \RequirePackage{textpos}
 \RequirePackage[font=small,totoc]{idxlayout}
+\RequirePackage{draftwatermark}
 % custom packages -- WARNING: import order matters !!!
 \RequirePackage{styles/dirtree}
 \RequirePackage{styles/custompagestyle}
@@ -55,10 +56,9 @@
   url=true
 ]{biblatex}
 \addbibresource{parts/bibliography.bib}
-\addbibresource{parts/understanding-scap.bib}
 \addtolength{\skip\footins}{.5cm}
 % image settings
-\graphicspath{{figures/},{figures/srs/},{figures/sdd/},{./figures/scap-survey/},{./icons/}}
+\graphicspath{{figures/},{./icons/}}
 \DeclareGraphicsExtensions{.jpg,.jpeg,.gif,.png,.pdf}
 % other settings
 \setboolean{@twoside}{true}

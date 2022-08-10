@@ -9,6 +9,12 @@
 \RequirePackage{multicol}
 % Tikz library imports
 \usetikzlibrary{backgrounds,calc,positioning}
+% define UCL colors
+\definecolor{FirstBlue}{HTML}{2D4E9C}
+\definecolor{SecondBlue}{HTML}{4A96CD}
+% define ULB colors
+%\definecolor{FirstBlue}{cmyk}{1.00,0.68,0.00,0.54}
+%\definecolor{SecondBlue}{HTML}{1B4C8D}
 % define tikz settings for drawing chapter headers
 \tikzset{ % these settings define the blue chapter heading label
   chapterlabel/.style={draw,%
@@ -20,7 +26,7 @@
   minimum height=2cm,%
   anchor=west,%
   xshift=.16\paperwidth,%
-  fill=UCLblue},
+  fill=FirstBlue},
 }
 \tikzset{ % these settings define the blue chapter text header (when chapternumber is present)
   chapterheader/.style={draw,%
@@ -32,7 +38,7 @@
   minimum height=2cm,%
   anchor=west,%
   xshift=.26\paperwidth,%
-  fill=UCLblue},
+  fill=FirstBlue},
 }
 % redefine chapter title format
 \newcommand*\chapterlabel{}
@@ -44,7 +50,7 @@
     \begin{tikzpicture}[remember picture,overlay]
       \node[yshift=-4.5cm] at (current page.north west){
         \begin{tikzpicture}[remember picture, overlay]
-          \draw[fill=EPLblue,draw=none] (3,0) rectangle (\paperwidth-3cm, 1.5cm);
+          \draw[fill=SecondBlue,draw=none] (3,0) rectangle (\paperwidth-3cm, 1.5cm);
           \node[chapterlabel]{\color{white}#1};
         \end{tikzpicture}
       };
@@ -53,15 +59,15 @@
     \begin{tikzpicture}[remember picture,overlay]
       \node[yshift=-3cm] at (current page.north west){
         \begin{tikzpicture}[remember picture, overlay]
-          \draw[fill=EPLblue,draw=none] (3, 0) rectangle (4.5cm, -23.5cm);
+          \draw[fill=SecondBlue,draw=none] (3, 0) rectangle (4.5cm, -23.5cm);
         \end{tikzpicture}
       };
       \node[yshift=-4.5cm] at (current page.north west){
         \begin{tikzpicture}[remember picture, overlay]
-          \draw[fill=EPLblue,draw=none] (3,0) rectangle (\paperwidth-3cm, 1.5cm);
+          \draw[fill=SecondBlue,draw=none] (3,0) rectangle (\paperwidth-3cm, 1.5cm);
           \node[chapterlabel]{};
           \node[chapterheader]{\color{white}#1};
-          \draw[fill=white,draw=none] (4.4,0) circle (0.9cm) node {\color{UCLblue}\thechapter};
+          \draw[fill=white,draw=none] (4.4,0) circle (0.9cm) node {\color{FirstBlue}\thechapter};
         \end{tikzpicture}
       };
     \end{tikzpicture}
