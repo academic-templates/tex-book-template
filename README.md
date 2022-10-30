@@ -121,8 +121,10 @@ Your appendix content.
 
 You may also like these:
 
+- [TeX Cheat Sheet Template](https://github.com/dhondta/tex-cheat-sheet-template): A template for creating a nice cheat sheet with LaTeX.
 - [TeX Course Index Template](https://github.com/dhondta/tex-course-index-template): A template for writing a condensed course index leveraging LaTeX indexing.
 - [TeX Master Thesis Template](https://github.com/dhondta/tex-master-thesis-template): A template for writing a nice master thesis dissertation with LaTeX.
+- [TeX Poster Template](https://github.com/dhondta/tex-poster-template): A template for creating a nice scientific poster with LaTeX.
 
 
 ## :clap:  Supporters
