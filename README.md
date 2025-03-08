@@ -1,3 +1,5 @@
+<h1 align="center">LaTeX Book Template <a href="https://twitter.com/intent/tweet?text=LaTeX%20Book%20Template.%0D%0ALaTeX%20template%20for%20creating%20your%20beautiful%20book%2e%0D%0A&hashtags=TeXLaTeX"><img src="https://img.shields.io/badge/Tweet--lightgrey?logo=twitter&style=social" alt="Tweet" height="20"/></a></h1>
+
 ## :information_source: Introduction
 
 The goal of this template is to provide a nice-looking book layout, easy to configure and fill in.
